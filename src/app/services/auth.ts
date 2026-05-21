@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +9,13 @@ export class Auth {
   private apiUrl = 'http://localhost:3000/api/users';
 
   isConnected = signal(!!localStorage.getItem('token'));
+  user = signal<User | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    if (this.isLoggedIn()) {
+      this.loadUser();
+    }
+  }
 
   verifPassword(password: string, confirmPassword: string): boolean {
     const hasUppercase = /[A-Z]/.test(password);
@@ -31,12 +37,20 @@ export class Auth {
       ? { email: usernameOrEmail, password }
       : { username: usernameOrEmail, password };
 
-    return this.http.post<{ token: string, user: any }>(`${this.apiUrl}/login`, body);
+    return this.http.post<{ token: string, user: User }>(`${this.apiUrl}/login`, body);
   }
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
     this.isConnected.set(true);
+    this.loadUser();
+  }
+
+  loadUser() {
+    this.getMe().subscribe({
+      next: (data) => this.user.set(data),
+      error: () => this.user.set(null)
+    });
   }
 
   getToken() {
@@ -46,9 +60,16 @@ export class Auth {
   logout() {
     localStorage.removeItem('token');
     this.isConnected.set(false);
+    this.user.set(null);
   }
 
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;
+  }
+
+  getMe() {
+    return this.http.get<User>(`${this.apiUrl}/me`, {
+      headers: { Authorization: `Bearer ${this.getToken()}` }
+    });
   }
 }

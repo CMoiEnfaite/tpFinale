@@ -6,7 +6,7 @@
       <a [routerLink]="['/login']" class="login">Se connecter</a>
       <a [routerLink]="['/register']" class="register">S'inscrire</a>
     } @else {
-      <a [routerLink]="['/profile']" class="login">PSEUDO</a>
+      <a [routerLink]="['/profile']" class="login">{{user()?.username}}</a>
       <button (click)="logout()">Se déconnecter</button>
     }
   </div>

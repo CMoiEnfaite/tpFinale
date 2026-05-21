@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { Auth } from '../../../../services/auth';
+import { Auth } from '../../../services/auth';
 
 @Component({
   selector: 'app-header-component',
@@ -11,9 +11,10 @@ import { Auth } from '../../../../services/auth';
 export class HeaderComponent {
   private auth = inject(Auth);
   private router = inject(Router);
-  
+
   isConnected = this.auth.isConnected;
-  
+  user = this.auth.user;
+
   logout() {
     this.auth.logout();
     setTimeout(() => {
