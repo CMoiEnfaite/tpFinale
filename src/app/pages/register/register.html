@@ -1,0 +1,19 @@
+<div class="register-container">
+    <form (ngSubmit)="onRegister()">
+
+    @if (errorMessage) {
+        <p style="color: red;">{{ errorMessage }}</p>
+    }
+    @if (succesMessage) {
+        <p style="color: rgb(76, 180, 16);">{{ succesMessage }}</p>
+    }
+
+    <input [(ngModel)]="username" name="username" placeholder="Nom d'utilisateur" />
+    <input [(ngModel)]="email" name="email" placeholder="Email" />
+    <input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe" />
+    <input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirmer" />
+
+    <button type="submit">S'inscrire</button>
+
+    </form>
+</div>
