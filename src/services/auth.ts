@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-
   private apiUrl = 'http://localhost:3000/api/users';
+
+  isConnected = signal(!!localStorage.getItem('token'));
 
   constructor(private http: HttpClient) {}
 
   verifPassword(password: string, confirmPassword: string): boolean {
-
     const hasUppercase = /[A-Z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
 
@@ -25,12 +25,18 @@ export class Auth {
     return this.http.post(`${this.apiUrl}/register`, { username, email, password });
   }
 
-  login(username: string, password: string) {
-    return this.http.post<{ token: string, user: any }>(`${this.apiUrl}/login`, { username, password });
+  login(usernameOrEmail: string, password: string) {
+    const isEmail = usernameOrEmail.includes('@');
+    const body = isEmail
+      ? { email: usernameOrEmail, password }
+      : { username: usernameOrEmail, password };
+
+    return this.http.post<{ token: string, user: any }>(`${this.apiUrl}/login`, body);
   }
 
   saveToken(token: string) {
     localStorage.setItem('token', token);
+    this.isConnected.set(true);
   }
 
   getToken() {
@@ -39,6 +45,7 @@ export class Auth {
 
   logout() {
     localStorage.removeItem('token');
+    this.isConnected.set(false);
   }
 
   isLoggedIn(): boolean {

@@ -1,16 +1,13 @@
 <header>
-    <div class="logo" [routerLink]="['/']">LOGO</div>
+  <div class="logo" [routerLink]="['/']">LOGO</div>
 
-    <div class="nav-buttons">
-        @if (!isConnected()) {
-        <a [routerLink]="['/login']" class="login">Se connecter</a>
-        <a [routerLink]="['/register']" class="register">S'inscrire</a>
-        } @else if (isConnected()) {
-            <a [routerLink]="['/login']" class="login">PSEUDO</a>
-            
-            <button (click)="logout()">
-                Se déconnecter
-            </button>
-        }
-    </div>
+  <div class="nav-buttons">
+    @if (!isConnected()) {
+      <a [routerLink]="['/login']" class="login">Se connecter</a>
+      <a [routerLink]="['/register']" class="register">S'inscrire</a>
+    } @else {
+      <a [routerLink]="['/profile']" class="login">PSEUDO</a>
+      <button (click)="logout()">Se déconnecter</button>
+    }
+  </div>
 </header>
