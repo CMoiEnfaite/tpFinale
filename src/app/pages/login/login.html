@@ -1,0 +1,8 @@
+<div class="register-container">
+    <form (ngSubmit)="onLogin()">
+    <input [(ngModel)]="username" name="username" placeholder="Pseudo" />
+    <input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe" />
+
+    <button type="submit">Se connecter</button>
+    </form>
+</div>
