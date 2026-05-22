@@ -72,4 +72,28 @@ export class Auth {
       headers: { Authorization: `Bearer ${this.getToken()}` }
     });
   }
+
+  getProfile(id: number) {
+    return this.http.get<User>(`${this.apiUrl}/profile/${id}`, {
+      headers: { Authorization: `Bearer ${this.getToken()}` }
+    });
+  }
+
+  updateProfile(id: number, username: string, email: string) {
+    return this.http.put<User>(`${this.apiUrl}/profile/${id}`, { username, email }, {
+      headers: { Authorization: `Bearer ${this.getToken()}` }
+    });
+  }
+
+  deleteProfile(id: number) {
+    return this.http.delete(`${this.apiUrl}/profile/${id}`, {
+      headers: { Authorization: `Bearer ${this.getToken()}` }
+    });
+  }
+
+  changePassword(id: number, currentPassword: string, newPassword: string) {
+    return this.http.put(`${this.apiUrl}/change-password/${id}`, { currentPassword, newPassword }, {
+      headers: { Authorization: `Bearer ${this.getToken()}` }
+    });
+  }
 }

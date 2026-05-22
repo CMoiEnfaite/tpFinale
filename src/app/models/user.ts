@@ -4,4 +4,5 @@ export interface User {
   email: string;
   registrationDate: string;
   lastLogin: string;
+  password: string;
 }

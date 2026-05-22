@@ -1,0 +1,45 @@
+<h1>Modifier le profil</h1>
+
+<div class="profile-card">
+
+  @if (errorMessage) {
+    <p style="color: red;">{{ errorMessage }}</p>
+  }
+  @if (succesMessage) {
+    <p style="color: green;">{{ succesMessage }}</p>
+  }
+
+  <div class="info-group">
+    <label>Nom d'utilisateur</label>
+    <input type="text" [(ngModel)]="username" name="username" placeholder="{{ user()?.username }}" />
+  </div>
+
+  <div class="info-group">
+    <label>Adresse mail</label>
+    <input type="email" [(ngModel)]="email" name="email" placeholder="{{ user()?.email }}" />
+  </div>
+
+  <div class="info-group">
+    <label>Mot de passe actuel</label>
+    <input type="password" [(ngModel)]="currentPassword" name="currentPassword" placeholder="********" />
+  </div>
+
+  <div class="info-group">
+    <label>Nouveau mot de passe</label>
+    <input type="password" [(ngModel)]="newPassword" name="newPassword" placeholder="********" />
+  </div>
+
+  <div class="info-group">
+    <label>Confirmer le nouveau mot de passe</label>
+    <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="********" />
+  </div>
+
+  <button class="save-btn" (click)="updateProfile()">
+    Sauvegarder
+  </button>
+
+  <button class="save-btn" (click)="removeProfile()">
+    Supprimer votre compte
+  </button>
+
+</div>
