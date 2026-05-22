@@ -71,7 +71,7 @@ export class EditProfile {
     if (!id) return;
 
     this.auth.deleteProfile(id).subscribe({
-        next: (data) => {
+        next: () => {
           this.succesMessage = 'Profil supprimer avec succès !';
           this.auth.logout();
           setTimeout(() => {
