@@ -1,0 +1,21 @@
+ <div class="profile-container">
+    <h1>Mon Profil</h1>
+
+    <div class="profile-card">
+
+        <div class="info-group">
+            <label>Nom d'utilisateur</label>
+            <p>{{user()?.username}}</p>
+        </div>
+
+        <div class="info-group">
+            <label>Adresse mail</label>
+            <p>{{user()?.email}}</p>
+        </div>
+
+        <button class="edit-btn">
+            Modifier le profil
+        </button>
+
+    </div>
+</div>

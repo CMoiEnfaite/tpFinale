@@ -20,5 +20,5 @@ export class HeaderComponent {
     setTimeout(() => {
       this.router.navigate(['/']);
     }, 2000);
-  }
+  } 
 }
